@@ -1,0 +1,193 @@
+/* Variáveis para cores */
+:root {
+    --shopee-primary: #EE4D2D; /* Laranja/Coral principal */
+    --shopee-secondary: #f3f3f3; /* Cinza claro para fundos */
+    --text-color: #333;
+    --border-color: #e0e0e0;
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: var(--shopee-secondary);
+    color: var(--text-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 10px;
+}
+
+/* --- Header --- */
+.header {
+    background-color: #fff;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.main-header {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+}
+
+.logo {
+    color: var(--shopee-primary);
+    font-size: 28px;
+    font-weight: bold;
+    margin-right: 40px;
+}
+
+.search-bar {
+    flex-grow: 1;
+    display: flex;
+    border: 2px solid var(--shopee-primary);
+    border-radius: 2px;
+    max-width: 600px;
+}
+
+.search-bar input {
+    border: none;
+    padding: 8px 15px;
+    width: 100%;
+    font-size: 16px;
+    outline: none;
+}
+
+.search-bar button {
+    background-color: var(--shopee-primary);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+.cart-icon {
+    margin-left: 30px;
+    font-size: 24px;
+    position: relative;
+    cursor: pointer;
+    color: var(--shopee-primary);
+}
+
+.cart-icon .badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+
+/* --- Grade de Produtos (Product Grid) --- */
+.product-grid h2 {
+    margin-bottom: 15px;
+    color: var(--text-color);
+    font-size: 22px;
+    border-left: 5px solid var(--shopee-primary);
+    padding-left: 10px;
+}
+
+.grid-container {
+    display: grid;
+    /* Layout típico Shopee: 5 ou 6 colunas */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.product-card {
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.product-info {
+    padding: 10px;
+}
+
+.product-info .name {
+    font-size: 14px;
+    height: 3em; /* Limita a altura para 2 linhas */
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.price-section {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 5px;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 12px;
+    margin-right: 8px;
+}
+
+.current-price {
+    color: var(--shopee-primary);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.footer-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.sold-count {
+    font-size: 12px;
+    color: #777;
+}
+
+.add-to-cart-btn {
+    background-color: var(--shopee-primary);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #e04529;
+}
+
+/* --- Footer --- */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    color: #666;
+    border-top: 1px solid var(--border-color);
+}

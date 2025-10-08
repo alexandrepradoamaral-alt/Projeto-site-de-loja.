@@ -1,63 +1,37 @@
-// Dados de Exemplo (simulando uma lista de produtos)
-const products = [
-    { id: 1, name: "Mini Ventilador Portátil USB", price: 50.00, oldPrice: 100.00, sold: "5k", image: "placeholder.png" },
-    { id: 2, name: "Fone de Ouvido Sem Fio Bluetooth 5.0", price: 85.50, oldPrice: 120.00, sold: "2.1k", image: "placeholder.png" },
-    { id: 3, name: "Capa de Celular Anti-Impacto", price: 15.90, oldPrice: 25.00, sold: "10k", image: "placeholder.png" },
-    { id: 4, name: "Kit Pincéis de Maquiagem Profissional 12pç", price: 45.00, oldPrice: 90.00, sold: "7.8k", image: "placeholder.png" },
-    { id: 5, name: "Smartwatch Fitness Tracker", price: 150.00, oldPrice: 250.00, sold: "1.5k", image: "placeholder.png" },
-    // Adicione mais produtos conforme necessário...
-];
-
-const productList = document.getElementById('product-list');
 const cartCountElement = document.getElementById('cart-count');
-let cartCount = 0;
+// Tenta ler o valor do carrinho do Local Storage, se não existir, usa 0
+let cartCount = parseInt(localStorage.getItem('cartCount')) || 0;
 
-// Função para renderizar os produtos na tela
-function renderProducts() {
-    productList.innerHTML = ''; // Limpa o conteúdo atual
-
-    products.forEach(product => {
-        const productCard = document.createElement('div');
-        productCard.classList.add('product-card');
-        
-        // Formata os preços para BRL
-        const currentPriceFormatted = product.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        const oldPriceFormatted = product.oldPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-
-        productCard.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
-            <div class="product-info">
-                <p class="name">${product.name}</p>
-                <div class="price-section">
-                    <span class="old-price">${oldPriceFormatted}</span>
-                    <span class="current-price">${currentPriceFormatted}</span>
-                </div>
-                <div class="footer-card">
-                    <span class="sold-count">${product.sold} vendidos</span>
-                    <button class="add-to-cart-btn" data-id="${product.id}">Comprar</button>
-                </div>
-            </div>
-        `;
-        productList.appendChild(productCard);
-    });
-
-    // Adiciona o evento de clique aos botões de compra após a renderização
-    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-        button.addEventListener('click', addToCart);
-    });
+// Função para atualizar o contador do carrinho na tela
+function updateCartCount() {
+    cartCountElement.textContent = cartCount;
+    // Salva o novo valor no Local Storage
+    localStorage.setItem('cartCount', cartCount);
 }
 
 // Função para simular a adição de um item ao carrinho
 function addToCart(event) {
+    // 1. Pega o ID do produto no botão clicado
     const productId = event.target.dataset.id;
-    const product = products.find(p => p.id == productId);
+    
+    // 2. Pega o elemento pai (o product-card) para pegar o nome
+    const productCard = event.target.closest('.product-card');
+    const productName = productCard ? productCard.dataset.name : `Produto ID ${productId}`;
+    
+    // 3. Atualiza o contador
+    cartCount++;
+    updateCartCount();
 
-    if (product) {
-        cartCount++;
-        cartCountElement.textContent = cartCount;
-        alert(`"${product.name}" adicionado ao carrinho! Total: ${cartCount} itens.`);
-    }
+    // 4. Feedback visual (simulação)
+    alert(`"${productName}" adicionado ao carrinho! Total: ${cartCount} itens.`);
 }
 
-// Inicializa a renderização dos produtos ao carregar a página
-document.addEventListener('DOMContentLoaded', renderProducts);
+// Inicializa a exibição do contador ao carregar a página
+document.addEventListener('DOMContentLoaded', () => {
+    updateCartCount();
+    
+    // Adiciona o evento de clique a TODOS os botões de compra na página
+    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+        button.addEventListener('click', addToCart);
+    });
+});
